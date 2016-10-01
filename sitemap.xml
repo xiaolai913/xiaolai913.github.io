@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2016/10/01/Spark%E7%AE%80%E4%BB%8B/</loc>
+    <loc>http://salmonlike.com/2016/10/01/Spark%E7%AE%80%E4%BB%8B/</loc>
     
-    <lastmod>2016-10-01T12:55:26.000Z</lastmod>
+    <lastmod>2016-10-01T14:36:47.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2016/10/01/hello-world/</loc>
+    <loc>http://salmonlike.com/2016/10/01/hello-world/</loc>
     
-    <lastmod>2016-10-01T09:02:48.000Z</lastmod>
+    <lastmod>2016-10-01T14:15:16.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://salmonlike.com/tags/index.html</loc>
+    
+    <lastmod>2016-10-01T14:13:48.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://salmonlike.com/categories/index.html</loc>
+    
+    <lastmod>2016-10-01T14:13:37.000Z</lastmod>
     
   </url>
   
