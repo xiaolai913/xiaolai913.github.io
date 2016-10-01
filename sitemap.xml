@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/10/01/Spark%E7%AE%80%E4%BB%8B/</loc>
+    
+    <lastmod>2016-10-01T12:55:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2016/10/01/hello-world/</loc>
     
     <lastmod>2016-10-01T09:02:48.000Z</lastmod>
