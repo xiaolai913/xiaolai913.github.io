@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://salmonlike.com/"/>
-  <updated>2016-10-01T14:36:47.000Z</updated>
+  <updated>2016-12-25T15:11:28.000Z</updated>
   <id>http://salmonlike.com/</id>
   
   <author>
@@ -14,6 +14,70 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://salmonlike.com/2016/12/25/Redis%E7%AE%80%E4%BB%8B&amp;%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/"/>
+    <id>http://salmonlike.com/2016/12/25/Redis简介&amp;安装部署/</id>
+    <published>2016-12-25T15:11:28.000Z</published>
+    <updated>2016-12-25T15:11:28.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h3><ul>
+<li>一种开源的内存型KV/NoSQL存储服务，可用作数据库、缓存或者消息代理（消息的生产和订阅）等<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs and geospatial indexes with radius queries. Redis has built-in replication, Lua scripting, LRU eviction, transactions and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="有啥特点？"><a href="#有啥特点？" class="headerlink" title="有啥特点？"></a>有啥特点？</h3><ul>
+<li>数据主要存储在内存中，响应速度快</li>
+<li>KV存储，Value的类型支持<code>string, hash, list, set, sorted set</code>等</li>
+<li>支持对KV数据的单点/范围查询，bitmaps, hyperloglogs and geospatial indexes with radius queries （后几种查询目前还没试用过）</li>
+<li>支持<code>Pub/Sub(生产者/订阅者)</code>消息消费模式</li>
+<li>内建了主从复制、Lua脚本？、LRU内存替换策略、事务？机制</li>
+<li>同时支持<code>快照和AOF</code>两种持久化机制</li>
+<li>容灾方面不仅支持<code>主从复制</code>，还提供了<code>哨兵（Sentinel)机制以及Redis集群的自动化分片</code>技术来提高系统的可用性</li>
+</ul>
+<h3 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h3><ul>
+<li>当前最新版本：<a href="http://download.redis.io/releases/redis-3.2.6.tar.gz" target="_blank" rel="external">redis 3.2.6</a></li>
+<li><a href="http://www.cnblogs.com/linuxbug/p/5131504.html" target="_blank" rel="external">单节点Redis高可用（主从复制+三哨兵）安装教程</a></li>
+<li><p>启动命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 服务端启动</div><div class="line">src/redis-server redis.conf</div><div class="line"># 客户端连接</div><div class="line">src/redis-cli -a password</div></pre></td></tr></table></figure>
+</li>
+<li><p>常见问题</p>
+<ul>
+<li>make test出错，大多是tcl develop包没安装</li>
+<li>java客户端（jedis）访问失败，很可能是没设密码且保护模式开启，修改配置文件配上密码即可</li>
+</ul>
+</li>
+</ul>
+<h3 id="常用命令集合"><a href="#常用命令集合" class="headerlink" title="常用命令集合"></a>常用命令集合</h3><p>1）连接操作命令<br>quit：关闭连接（connection）<br>auth：简单密码认证<br>help cmd： 查看cmd帮助，例如：help quit</p>
+<p>2）持久化<br>save：将数据同步保存到磁盘<br>bgsave：将数据异步保存到磁盘<br>lastsave：返回上次成功将数据保存到磁盘的Unix时戳<br>shundown：将数据同步保存到磁盘，然后关闭服务</p>
+<p>3）远程服务控制<br>info：提供服务器的信息和统计<br>monitor：实时转储收到的请求<br>slaveof：改变复制策略设置<br>config：在运行时配置Redis服务器</p>
+<p>4）对value操作的命令<br>exists(key)：确认一个key是否存在<br>del(key)：删除一个key<br>type(key)：返回值的类型<br>keys(pattern)：返回满足给定pattern的所有key<br>randomkey：随机返回key空间的一个<br>keyrename(oldname, newname)：重命名key<br>dbsize：返回当前数据库中key的数目<br>expire：设定一个key的活动时间（s）<br>ttl：获得一个key的活动时间<br>select(index)：按索引查询<br>move(key, dbindex)：移动当前数据库中的key到dbindex数据库<br>flushdb：删除当前选择数据库中的所有key<br>flushall：删除所有数据库中的所有key</p>
+<p>5）String<br>set(key, value)：给数据库中名称为key的string赋予值value<br>get(key)：返回数据库中名称为key的string的value<br>getset(key, value)：给名称为key的string赋予上一次的value<br>mget(key1, key2,…, key N)：返回库中多个string的value<br>setnx(key, value)：添加string，名称为key，值为value<br>setex(key, time, value)：向库中添加string，设定过期时间time  (覆盖时过期时间也会被覆盖）<br>mset(key N, value N)：批量设置多个string的值<br>msetnx(key N, value N)：如果所有名称为key i的string都不存在<br>incr(key)：名称为key的string增1操作<br>incrby(key, integer)：名称为key的string增加integer<br>decr(key)：名称为key的string减1操作<br>decrby(key, integer)：名称为key的string减少integer<br>append(key, value)：名称为key的string的值附加value<br>substr(key, start, end)：返回名称为key的string的value的子串</p>
+<p>6）List<br>rpush(key, value)：在名称为key的list尾添加一个值为value的元素<br>lpush(key, value)：在名称为key的list头添加一个值为value的 元素<br>llen(key)：返回名称为key的list的长度<br>lrange(key, start, end)：返回名称为key的list中start至end之间的元素<br>ltrim(key, start, end)：截取名称为key的list<br>lindex(key, index)：返回名称为key的list中index位置的元素<br>lset(key, index, value)：给名称为key的list中index位置的元素赋值<br>lrem(key, count, value)：删除count个key的list中值为value的元素<br>lpop(key)：返回并删除名称为key的list中的首元素<br>rpop(key)：返回并删除名称为key的list中的尾元素<br>blpop(key1, key2,… key N, timeout)：lpop命令的block版本。<br>brpop(key1, key2,… key N, timeout)：rpop的block版本。<br>rpoplpush(srckey, dstkey)：返回并删除名称为srckey的list的尾元素，并将该元素添加到名称为dstkey的list的头部</p>
+<p>7）Set<br>sadd(key, member)：向名称为key的set中添加元素member<br>srem(key, member) ：删除名称为key的set中的元素member<br>spop(key) ：随机返回并删除名称为key的set中一个元素<br>smove(srckey, dstkey, member) ：移到集合元素<br>scard(key) ：返回名称为key的set的基数<br>sismember(key, member) ：member是否是名称为key的set的元素<br>sinter(key1, key2,…key N) ：求交集<br>sinterstore(dstkey, (keys)) ：求交集并将交集保存到dstkey的集合<br>sunion(key1, (keys)) ：求并集<br>sunionstore(dstkey, (keys)) ：求并集并将并集保存到dstkey的集合<br>sdiff(key1, (keys)) ：求差集<br>sdiffstore(dstkey, (keys)) ：求差集并将差集保存到dstkey的集合<br>smembers(key) ：返回名称为key的set的所有元素<br>srandmember(key) ：随机返回名称为key的set的一个元素</p>
+<p>8）Hash<br>hset(key, field, value)：向名称为key的hash中添加元素field<br>hget(key, field)：返回名称为key的hash中field对应的value<br>hmget(key, (fields))：返回名称为key的hash中field i对应的value<br>hmset(key, (fields))：向名称为key的hash中添加元素field<br>hincrby(key, field, integer)：将名称为key的hash中field的value增加integer<br>hexists(key, field)：名称为key的hash中是否存在键为field的域<br>hdel(key, field)：删除名称为key的hash中键为field的域<br>hlen(key)：返回名称为key的hash中元素个数<br>hkeys(key)：返回名称为key的hash中所有键<br>hvals(key)：返回名称为key的hash中所有键对应的value<br>hgetall(key)：返回名称为key的hash中所有的键（field）及其对应的value</p>
+<h3 id="Java客户端访问"><a href="#Java客户端访问" class="headerlink" title="Java客户端访问"></a>Java客户端访问</h3><ul>
+<li><a href="http://www.cnblogs.com/liuling/p/2014-4-19-04.html" target="_blank" rel="external">使用Jedis操作Redis</a></li>
+</ul>
+<h3 id="待调研内容"><a href="#待调研内容" class="headerlink" title="待调研内容"></a>待调研内容</h3><ul>
+<li>Redis Pub/Sub功能实践</li>
+<li>Redis集群模式搭建</li>
+<li>Redis集群模式分片技术及一致性哈希等</li>
+</ul>
+<h3 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h3><ul>
+<li><a href="https://redis.io/" target="_blank" rel="external">Redis官网</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;是什么？&quot;&gt;&lt;a href=&quot;#是什么？&quot; class=&quot;headerlink&quot; title=&quot;是什么？&quot;&gt;&lt;/a&gt;是什么？&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;一种开源的内存型KV/NoSQL存储服务，可用作数据库、缓存或者消息代理（消息的生产和订阅）等&lt;figure c
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Spark简介</title>
