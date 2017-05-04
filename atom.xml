@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Salmon</title>
+  <title>三文鱼 | 爱虾米</title>
   
   <link href="/atom.xml" rel="self"/>
   
@@ -162,6 +162,72 @@
     
     
       <category term="spark" scheme="http://salmonlike.com/tags/spark/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kafka简介</title>
+    <link href="http://salmonlike.com/2015/12/15/Kafka%E7%AE%80%E4%BB%8B/"/>
+    <id>http://salmonlike.com/2015/12/15/Kafka简介/</id>
+    <published>2015-12-15T12:54:41.000Z</published>
+    <updated>2017-05-04T22:48:15.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Kafka基础"><a href="#Kafka基础" class="headerlink" title="Kafka基础"></a>Kafka基础</h2><hr>
+<h3 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h3><ul>
+<li>分布式消息系统（发布-订阅）</li>
+<li>实时流式系统</li>
+</ul>
+<h3 id="有啥特点？"><a href="#有啥特点？" class="headerlink" title="有啥特点？"></a>有啥特点？</h3><ul>
+<li>分布式，可扩展</li>
+<li>高吞吐、低延迟（超一流的读写性能！)</li>
+<li>容错，高可靠（支持ack)</li>
+<li>支持多订阅，负载均衡</li>
+<li>消息持久化，除了可用于实时消费也可用于离线分析，ETL等操作</li>
+</ul>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
+<li>数据缓冲、    异步通信、日志汇集、系统解耦等</li>
+</ul>
+<h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><p><img src="http://kafka.apache.org/images/producer_consumer.png" alt="kafka架构图"></p>
+<h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><ol>
+<li>message：key/value对。其中value即消息，key用来进行partition的哈希（除非用户自己明确指定分区）</li>
+<li>Topic：用于划分Message的逻辑概念，一个Topic可以分布在多个Broker上。</li>
+<li><strong>Partition</strong>：是Kafka中横向扩展和一切并行化的基础，每个Topic都至少被切分为1个Partition。</li>
+<li>Offset：消息在Partition中的编号，编号顺序不跨Partition。</li>
+<li><strong>Consumer</strong>：用于从Broker中取出/消费Message。</li>
+<li><strong>Producer</strong>：用于往Broker中发送/生产Message。</li>
+<li>Replication：Kafka支持以Partition为单位对Message进行冗余备份，每个Partition都可以配置至少1个Replication(当仅1个Replication时即仅该Partition本身)。</li>
+<li>Leader：每个Replication集合中的Partition都会选出一个唯一的Leader，所有的读写请求都由Leader处理。其他Replicas从Leader处把数据更新同步到本地，过程类似大家熟悉的MySQL中的Binlog同步。</li>
+<li><strong>Broker</strong>：Kafka中使用Broker来接受Producer和Consumer的请求，并把Message持久化到本地磁盘。每个Cluster当中会选举出一个Broker来担任Controller，负责处理Partition的Leader选举，协调Partition迁移等工作。</li>
+<li>ISR(In-Sync Replica)：是Replicas的一个子集，表示目前Alive且与Leader能够“Catch-up”的Replicas集合。由于读写都是首先落到Leader上，所以一般来说通过同步机制从Leader上拉取数据的Replica都会和Leader有一些延迟(包括了延迟时间和延迟条数两个维度)，任意一个超过阈值都会把该Replica踢出ISR。每个Partition都有它自己独立的ISR。</li>
+</ol>
+<h3 id="常用命令："><a href="#常用命令：" class="headerlink" title="常用命令："></a>常用命令：</h3><ol>
+<li>启动服务</li>
+</ol>
+<ul>
+<li>启动zk: bin/zookeeper-server-start.sh config/zookeeper.properties</li>
+<li>启动kafka broker: bin/kafka-server-start.sh config/server.properties</li>
+<li>创建topic: bin/kafka-topics.sh –create –zookeeper localhost:2181 –replication-factor 1 –partitions 1 –topic test</li>
+<li>产生消息: bin/kafka-console-producer.sh –broker-list localhost:9092 –topic test</li>
+<li>消费消息：bin/kafka-console-consumer.sh –zookeeper localhost:2181 –topic test –from-beginning</li>
+</ul>
+<h3 id="kafka监控工具"><a href="#kafka监控工具" class="headerlink" title="kafka监控工具"></a>kafka监控工具</h3><ul>
+<li>Kafka Web Conslole</li>
+<li><a href="https://github.com/yahoo/kafka-manager" target="_blank" rel="external">Kafka Manager</a></li>
+<li><a href="https://github.com/quantifind/KafkaOffsetMonitor" target="_blank" rel="external">KafkaOffsetMonitor</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Kafka基础&quot;&gt;&lt;a href=&quot;#Kafka基础&quot; class=&quot;headerlink&quot; title=&quot;Kafka基础&quot;&gt;&lt;/a&gt;Kafka基础&lt;/h2&gt;&lt;hr&gt;
+&lt;h3 id=&quot;是什么？&quot;&gt;&lt;a href=&quot;#是什么？&quot; class=&quot;headerlink&quot;
+    
+    </summary>
+    
+      <category term="流式处理" scheme="http://salmonlike.com/categories/%E6%B5%81%E5%BC%8F%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="kafka" scheme="http://salmonlike.com/tags/kafka/"/>
     
   </entry>
   

@@ -132,7 +132,7 @@ code {
   margin: 0 2px;
   color: #e96900;
   padding: 3px 5px;
-  font-size: 0.8em;
+  font-size: 0.9em;
   border-radius: 2px;
   font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
   background-color: #f8f8f8;
@@ -195,6 +195,16 @@ code {
     float: left;
     width: 67.6923076923077%;
     margin: 0 0.769230769230769%;
+  }
+}
+@media screen and (min-width: 560px) and (max-width: 799px) {
+  #main {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 559px) {
+  #main {
+    width: 100%;
   }
 }
 .archive-article-header a,
@@ -873,6 +883,9 @@ a.article-title:hover {
 .article-entry:after {
   clear: both;
 }
+.article-entry p {
+  text-align: justify;
+}
 .article-entry p,
 .article-entry table {
   line-height: 1.6em;
@@ -933,7 +946,7 @@ a.article-title:hover {
   padding: 10px 0;
 }
 .article-entry blockquote {
-  position: relative;
+  position: static;
   font-family: Georgia, "Times New Roman", "Microsoft Yahei", serif;
   font-size: 1.1em;
   margin: 0 -20px;
@@ -949,7 +962,7 @@ a.article-title:hover {
   font-size: 32px;
   font-family: FontAwesome;
   text-align: center;
-  position: absolute;
+  position: static;
 }
 .article-entry blockquote footer {
   font-size: 14px;
@@ -1331,6 +1344,15 @@ ol.toc {
   -moz-transition: color 0.3s ease-out;
   -ms-transition: color 0.3s ease-out;
   transition: color 0.3s ease-out;
+}
+.article.rtl .article-title,
+.article.rtl .article-entry p {
+  direction: rtl;
+}
+.article.rtl .article-meta > div {
+  float: right;
+  margin-left: 10px;
+  margin-right: 0;
 }
 .lg-outer .lg-thumb-item {
   border-radius: 0 !important;
